@@ -1,20 +1,38 @@
+import classes from './Todo.module.scss';
+import { useContext } from 'react';
+import { TodosContext } from '../TodosContext';
 
-function Todo({ title, description, isDone }) {
+
+function Todo({todo}) {
+
+const store = useContext(TodosContext);
 
   return (
     <>
-        <div className={`todo ${isDone ? 'done' : ''}`}>
-            <button className="erase">x erase</button>
+        <div className={`${classes.todo} ${todo.isDone ? classes.done : ''}`}>
+            <button 
+                onClick={() =>  store.dispatch({
+                    type: 'deleted',
+                    id: todo.id
+                  })}
+                className={classes.erase}>
+                x erase</button>
             <h3>
-                {title}
+                {todo.title}
             </h3>
             <p>
-                {description}
+                {todo.description}
             </p>
-            <div className="task-check">
-                <input type="checkbox" checked={isDone} />
+            <div className={`${classes['task-check']}`}>
+                <input 
+                    onClick={() => store.dispatch({
+                        type: 'toggledIsDone', 
+                        id: todo.id
+                      })}
+                    type="checkbox" 
+                    defaultChecked={todo.isDone} />
                 <label>
-                    {!isDone ? 'To-Do' : 'Done'}
+                    {!todo.isDone ? 'To-Do' : 'Done'}
                 </label>
             </div>
         </div>
