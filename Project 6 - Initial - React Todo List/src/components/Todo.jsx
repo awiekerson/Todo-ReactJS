@@ -1,11 +1,10 @@
 import classes from './Todo.module.scss';
-import { useContext } from 'react';
-import { TodosContext } from '../TodosContext';
+import { useTodos } from '../TodosContext.jsx';
 
 
 function Todo({todo}) {
 
-const store = useContext(TodosContext);
+const store = useTodos();
 
   return (
     <>
